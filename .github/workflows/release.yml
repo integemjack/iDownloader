@@ -15,7 +15,12 @@ jobs:
     steps:
 
       - name: init
-        uses: actions/checkout@v1
+        uses: actions/checkout@master
+        
+      - name: set node
+        uses: actions/setup-node@v1
+        with:
+          node-version: latest
 
       - name: clone
         env:
