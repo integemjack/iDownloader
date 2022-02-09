@@ -36,7 +36,10 @@ jobs:
           path: package.json
           key: version
 
-      - name: build
+      - name: npm i
+        run: npm i
+        
+      - name: npm build
         run: npm run build:all
 
       - name: create release
