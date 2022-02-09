@@ -153,7 +153,7 @@ jobs:
           upload_url: ${{ steps.cache.outputs.upload_url }}
           dir: build
           exts: '["exe", "dmg", "zip", "appimage", "deb", "rpm", "apk", "msi", "pkg", "appx"]'
-          suffix: _tools
+          suffix: ""
           
       - name: Upload to tools.integem.com
         run: npm run upload
