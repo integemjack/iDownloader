@@ -72,13 +72,13 @@ jobs:
   tools:
     needs: [release]
 
-    runs-on: ${{matrix.os}}
+    runs-on: ${{matrix.os}}-latest
     
     strategy:
       fail-fast: false
       matrix:
         node: [14]
-        os: [ubuntu-latest, macOS-latest, windows-latest]
+        os: [ubuntu, macos, windows]
 
     steps:
       - name: init
