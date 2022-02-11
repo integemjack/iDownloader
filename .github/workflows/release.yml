@@ -77,7 +77,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node: [14]
+        node: [16]
         os: [ubuntu, macos, windows]
 
     steps:
@@ -131,8 +131,8 @@ jobs:
           path: package.json
           key: productName
 
-      - name: deploy
-        run: npm run upload:null
+#       - name: deploy
+#         run: npm run upload:null
 
       - name: init cache
         id: cache
@@ -155,5 +155,5 @@ jobs:
           exts: '["exe", "dmg", "zip", "appimage", "deb", "rpm", "apk", "msi", "pkg", "appx"]'
           suffix: ""
           
-      - name: Upload to tools.integem.com
-        run: npm run upload
+#       - name: Upload to tools.integem.com
+#         run: npm run upload
