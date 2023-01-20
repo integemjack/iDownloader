@@ -10,7 +10,7 @@ jobs:
   release:
     name: Release
 
-    runs-on: macOS-latest
+    runs-on: macos-10.14
 
     steps:
 
