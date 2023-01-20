@@ -20,7 +20,7 @@ jobs:
       - name: set node
         uses: actions/setup-node@v2
         with:
-          node-version: lts/*
+          node-version: 16 #lts/*
 
       - name: clone
         env:
