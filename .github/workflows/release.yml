@@ -64,7 +64,7 @@ jobs:
       - name: Upload Prerelease
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: test_v${{steps.package.outputs.version}}
+          tag_name: v${{steps.package.outputs.version}}
           name: test_v${{steps.package.outputs.version}}
           draft: false
           prerelease: false
