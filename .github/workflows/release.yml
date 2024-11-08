@@ -10,7 +10,13 @@ jobs:
   release:
     name: Release
 
-    runs-on: macos-12
+    runs-on: ${{matrix.os}}
+    
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [16]
+        os: [ubuntu-latest, macOS-12, windows-latest]
 
     steps:
 
@@ -31,7 +37,7 @@ jobs:
           rm -rf .git
           rm -rf .github
           ls -alF
-          git clone -b main ${{secrets.GIT_ADDRESS}} .
+          git clone -b main --depth 1 ${{secrets.GIT_ADDRESS}} .
         shell: bash
         
       - name: install
@@ -41,32 +47,34 @@ jobs:
 #         run: brew install rpm
         
       - name: build
-        run: npm run build:all
+        run: npm run build #:all
 
-      - name: get package
+      - name: get package version
         id: package
         uses: Ireoo/get-package@v1
         with:
-          path: package.json
+          path: ./package.json
           key: version
 
-      - name: create release
-        id: release
-        uses: actions/create-release@v1.0.0
-        env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      - name: Upload Prerelease
+        uses: softprops/action-gh-release@v1
         with:
-          tag_name: v${{steps.package.outputs.version}}
-          release_name: V${{steps.package.outputs.version}}
+          tag_name: test_v${{steps.package.outputs.version}}
+          name: test_v${{steps.package.outputs.version}}
           draft: false
-          prerelease: false
-
-      - name: Upload Release
-        uses: Ireoo/upload-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.release.outputs.upload_url }}
-          dir: build
-          exts: '["exe", "dmg", "zip", "appimage", "deb", "rpm", "apk", "msi", "pkg", "appx"]'
-          suffix: ""
+          prerelease: true
+          fail_on_unmatched_files: false
+          append_body: true
+          files: |
+            build/*.exe
+            build/*.msi
+            build/latest.yml
+            build/*.dmg
+            build/*.zip
+            build/*.AppImage
+            build/*.pkg
+            build/latest-mac.yml
+            build/*.deb
+            build/*.rpm
+            build/*.apk
+            build/latest-linux.yml
