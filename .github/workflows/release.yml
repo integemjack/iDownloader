@@ -16,7 +16,7 @@ jobs:
       fail-fast: false
       matrix:
         node: [16]
-        os: [ubuntu-latest, macOS-13, windows-latest]
+        os: [ubuntu-latest, macOS-latest, windows-latest]
 
     steps:
 
@@ -27,10 +27,6 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: "3.8" 
-
-      - name: Create Python symlink
-        run: |
-          sudo ln -s $(which python3) /usr/bin/python
 
       - name: set node
         uses: actions/setup-node@v2
@@ -69,7 +65,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           tag_name: v${{steps.package.outputs.version}}
-          name: test_v${{steps.package.outputs.version}}
+          name: v${{steps.package.outputs.version}}
           draft: false
           prerelease: false
           fail_on_unmatched_files: false
