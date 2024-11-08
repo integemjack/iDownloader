@@ -51,8 +51,17 @@ jobs:
 #       - name: brew install
 #         run: brew install rpm
         
-      - name: build
-        run: npm run build #:all
+      - name: win
+        if: startsWith(matrix.os, 'windows')
+        run: npm run build
+          
+      - name: linux
+        if: startsWith(matrix.os, 'ubuntu')
+        run: npm run build
+        
+      - name: mac
+        if: startsWith(matrix.os, 'macOS')
+        run: npm run build:mac
 
       - name: get package version
         id: package
