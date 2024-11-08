@@ -22,6 +22,11 @@ jobs:
 
       - name: init
         uses: actions/checkout@v1
+
+      - name: set python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.8" 
       
       - name: set node
         uses: actions/setup-node@v2
